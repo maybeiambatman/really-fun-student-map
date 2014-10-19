@@ -1,0 +1,234 @@
+<head>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="http://d3js.org/topojson.v1.min.js"></script>
+  <script src="/datamaps.world.min.js"></script>
+  <script src="/datamaps.usa.min.js"></script>
+</head>
+<h1> State Map </h1>
+<div id="container" style="position: relative; width: 700px; height: 400px;"></div>
+<script>
+    var map = new Datamap({
+        element: document.getElementById('container'),
+        scope: 'usa',
+        geographyConfig: {
+          highlightBorderColor: '#bada55',
+          color: "#000000",
+          popupTemplate: function(geography, data) {
+            return '<div class="hoverinfo">' + geography.properties.name +'<br>Total Students: ' +  data.numberOfThings + ' '
+          },
+          highlightBorderWidth: 3
+        },
+        fills: {
+            HIGH: '#afafaf',
+            LOW: '#123456',
+            MEDIUM: 'blue',
+            UNKNOWN: 'rgb(0,0,0)',
+            defaultFill: 'green'
+        },
+        data:{
+          "AZ": {
+              "fillKey": "rand",
+              "numberOfThings": 5
+          },
+          "CO": {
+              "fillKey": "Light Democrat",
+              "numberOfThings": 5
+          },
+          "DE": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "FL": {
+              "fillKey": "UNDECIDED",
+              "numberOfThings": 29
+          },
+          "GA": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "HI": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "ID": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "IL": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "IN": {
+              "fillKey": "Republican",
+              "numberOfThings": 11
+          },
+          "IA": {
+              "fillKey": "Light Democrat",
+              "numberOfThings": 11
+          },
+          "KS": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "KY": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "LA": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "MD": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "ME": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "MA": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "MN": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "MI": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "MS": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "MO": {
+              "fillKey": "Republican",
+              "numberOfThings": 13
+          },
+          "MT": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "NC": {
+              "fillKey": "Light Republican",
+              "numberOfThings": 32
+          },
+          "NE": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "NV": {
+              "fillKey": "Heavy Democrat",
+              "numberOfThings": 32
+          },
+          "NH": {
+              "fillKey": "Light Democrat",
+              "numberOfThings": 32
+          },
+          "NJ": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "NY": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "ND": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "NM": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "OH": {
+              "fillKey": "UNDECIDED",
+              "numberOfThings": 32
+          },
+          "OK": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "OR": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "PA": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "RI": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "SC": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "SD": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "TN": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "TX": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "UT": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "WI": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "VA": {
+              "fillKey": "Light Democrat",
+              "numberOfThings": 32
+          },
+          "VT": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "WA": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "WV": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "WY": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "CA": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "CT": {
+              "fillKey": "Democrat",
+              "numberOfThings": 32
+          },
+          "AK": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "AR": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          },
+          "AL": {
+              "fillKey": "Republican",
+              "numberOfThings": 32
+          }
+        }
+    });
+
+    //draw a legend for this map
+    map.legend();
+</script>
