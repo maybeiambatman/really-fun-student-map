@@ -1,234 +1,185 @@
-<head>
-  <script src="http://d3js.org/d3.v3.min.js"></script>
-  <script src="http://d3js.org/topojson.v1.min.js"></script>
-  <script src="/datamaps.world.min.js"></script>
-  <script src="/datamaps.usa.min.js"></script>
-</head>
-<h1> State Map </h1>
-<div id="container" style="position: relative; width: 700px; height: 400px;"></div>
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+  .state{
+    fill: none;
+    stroke: #a9a9a9;
+    stroke-width: 1;
+  }
+  .state:hover{
+    fill-opacity:0.5;
+  }
+  #tooltip {   
+    position: absolute;           
+    text-align: center;
+    padding: 20px;             
+    margin: 10px;
+    font: 12px sans-serif;        
+    background: lightsteelblue;   
+    border: 1px;      
+    border-radius: 2px;           
+    pointer-events: none;         
+  }
+  #tooltip h4{
+    margin:0;
+    font-size:14px;
+  }
+  #tooltip{
+    background:rgba(0,0,0,0.9);
+    border:1px solid grey;
+    border-radius:5px;
+    font-size:12px;
+    width:auto;
+    padding:4px;
+    color:white;
+    opacity:0;
+  }
+  #tooltip table{
+    table-layout:fixed;
+  }
+  #tooltip tr td{
+    padding:0;
+    margin:0;
+  }
+  #tooltip tr td:nth-child(1){
+    width:50px;
+  }
+  #tooltip tr td:nth-child(2){
+    text-align:center;
+  }
+</style>
+<body>
+<div id="tooltip"></div><!-- div to hold tooltip. -->
+<link rel="stylesheet" type="text/css" href="css/radios-to-slider.css">
+<script src="js/uStates.js"></script> <!-- creates uStates. -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="js/jquery.radios-to-slider.js"></script>
+ 
 <script>
-    var map = new Datamap({
-        element: document.getElementById('container'),
-        scope: 'usa',
-        geographyConfig: {
-          highlightBorderColor: '#bada55',
-          color: "#000000",
-          popupTemplate: function(geography, data) {
-            return '<div class="hoverinfo">' + geography.properties.name +'<br>Total Students: ' +  data.numberOfThings + ' '
-          },
-          highlightBorderWidth: 3
-        },
-        fills: {
-            HIGH: '#afafaf',
-            LOW: '#123456',
-            MEDIUM: 'blue',
-            UNKNOWN: 'rgb(0,0,0)',
-            defaultFill: 'green'
-        },
-        data:{
-          "AZ": {
-              "fillKey": "rand",
-              "numberOfThings": 5
-          },
-          "CO": {
-              "fillKey": "Light Democrat",
-              "numberOfThings": 5
-          },
-          "DE": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "FL": {
-              "fillKey": "UNDECIDED",
-              "numberOfThings": 29
-          },
-          "GA": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "HI": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "ID": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "IL": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "IN": {
-              "fillKey": "Republican",
-              "numberOfThings": 11
-          },
-          "IA": {
-              "fillKey": "Light Democrat",
-              "numberOfThings": 11
-          },
-          "KS": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "KY": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "LA": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "MD": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "ME": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "MA": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "MN": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "MI": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "MS": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "MO": {
-              "fillKey": "Republican",
-              "numberOfThings": 13
-          },
-          "MT": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "NC": {
-              "fillKey": "Light Republican",
-              "numberOfThings": 32
-          },
-          "NE": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "NV": {
-              "fillKey": "Heavy Democrat",
-              "numberOfThings": 32
-          },
-          "NH": {
-              "fillKey": "Light Democrat",
-              "numberOfThings": 32
-          },
-          "NJ": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "NY": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "ND": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "NM": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "OH": {
-              "fillKey": "UNDECIDED",
-              "numberOfThings": 32
-          },
-          "OK": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "OR": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "PA": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "RI": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "SC": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "SD": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "TN": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "TX": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "UT": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "WI": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "VA": {
-              "fillKey": "Light Democrat",
-              "numberOfThings": 32
-          },
-          "VT": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "WA": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "WV": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "WY": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "CA": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "CT": {
-              "fillKey": "Democrat",
-              "numberOfThings": 32
-          },
-          "AK": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "AR": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          },
-          "AL": {
-              "fillKey": "Republican",
-              "numberOfThings": 32
-          }
+  $(document).ready( function(){
+    $("#radios").radiosToSlider();
+  });
+</script>
+ 
+<div id="radios">
+    <input id="option1" name="options" type="radio" checked>
+    <label for="option1">2006</label>
+ 
+    <input id="option2" name="options" type="radio">
+    <label for="option2">2007</label>
+ 
+    <input id="option3" name="options" type="radio">
+    <label for="option3">2008</label>
+ 
+    <input id="option4" name="options" type="radio">
+    <label for="option4">2009</label>
+ 
+    <input id="option5" name="options" type="radio">
+    <label for="option5">2010</label>
+
+    <input id="option6" name="options" type="radio">
+    <label for="option6">2011</label>
+ 
+    <input id="option7" name="options" type="radio">
+    <label for="option7">2012</label>
+ 
+    <input id="fa13" name="options" type="radio">
+    <label for="option8">2013</label>
+ 
+    <input id="option9" name="options" type="radio">
+    <label for="option9">2014</label>
+</div>
+<!-- <button id="fa13">Fall 2013</button> -->
+<svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+<script>
+
+  function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
+    return "<h4>"+n+"</h4><table>"+
+      "<tr><td>Students</td><td>"+(d.low)+"</td></tr>"+
+      "</table>";
+  }
+  
+  var numbers = {
+                  "AL": 5,
+                  "AK": 2,
+                  "AZ": 10,
+                  "AR": 6,
+                  "CA": 220,
+                  "CO": 17,
+                  "CT": 8,
+                  "DE": 2,
+                  "FL": 25,
+                  "GA": 20,
+                  "HI": 0,
+                  "ID": 3,
+                  "IL": 4927,
+                  "IN": 21,
+                  "IA": 10,
+                  "KS": 5,
+                  "KY": 12,
+                  "LA": 2,
+                  "ME": 0,
+                  "MD": 14,
+                  "MA": 22,
+                  "MI": 22,
+                  "MN": 23,
+                  "MS": 1,
+                  "MO": 33,
+                  "MT": 0,
+                  "NE": 3,
+                  "NV": 2,
+                  "NH": 1,
+                  "NJ": 79,
+                  "NM": 4,
+                  "NY": 63,
+                  "NC": 6,
+                  "ND": 0,
+                  "OH": 33,
+                  "OK": 0,
+                  "OR": 6,
+                  "PA": 19,
+                  "RI": 2,
+                  "SC": 2,
+                  "SD": 2,
+                  "TN": 10,
+                  "TX": 35,
+                  "UT": 4,
+                  "VT": 0,
+                  "VA": 36,
+                  "WA": 22,
+                  "WV": 0,
+                  "WI": 16,
+                  "WY": 0,
+                  "TO": 5755,
+              }
+
+  var sampleData ={}; /* Sample random data. */ 
+  ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+  "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
+  "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
+  "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
+  "WI", "MO", "AR", "OK", "KS", "VA", "LA"]
+    .forEach(function(d){
+        if (d === "IL"){
+          sampleData[d] = {low: numbers[d], color:"#006699"};
+        }
+        else{
+          sampleData[d] = {low: numbers[d], color:d3.interpolate("#ccffff", "#006699")(numbers[d]/300)};
         }
     });
-
-    //draw a legend for this map
-    map.legend();
+  
+  /* draw states on id #statesvg */ 
+  uStates.draw("#statesvg", sampleData, tooltipHtml);
 </script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+    $(document).on('click', '#fa13', function(){
+      load13();
+    });
+});
+</script>
+<script src="js/load13.js"></script>
+
+</body>
