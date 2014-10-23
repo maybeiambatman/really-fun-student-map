@@ -72,7 +72,12 @@ function load13() {
             sampleData[d] = {low: numbers[d], color:"#006699"};
           }
           else{
-            sampleData[d] = {low: numbers[d], color:d3.interpolate("#ccffff", "#006699")(numbers[d]/300)};
+            if (numbers[d] === 0){
+              sampleData[d] = {low: numbers[d], color:"#ffffff"};
+            }
+            else {
+              sampleData[d] = {low: numbers[d], color:d3.interpolate("#ccffff", "#006699")(numbers[d]/300)};
+            }
           }
       });
 

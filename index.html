@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
+  p {
+    font-size: 12px;
+  }
+
+  .blue{
+    color: #006699;
+  }
   .state{
     fill: none;
     stroke: #a9a9a9;
@@ -55,215 +62,193 @@
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="#">Student Map</a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Link</a></li>
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
-          </ul>
-        </li>
-      </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="#">Link</a></li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
-          <ul class="dropdown-menu" role="menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-          </ul>
-        </li>
+        <li><a href="about.html">About</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 <body>
-<div id="tooltip"></div><!-- div to hold tooltip. -->
-<link rel="stylesheet" type="text/css" href="css/radios-to-slider.css">
-<script src="js/uStates.js"></script> <!-- creates uStates. -->
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script src="js/jquery.radios-to-slider.js"></script>
- 
-<script>
-  $(document).ready( function(){
-    $("#radios").radiosToSlider();
-  });
-</script>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $(document).on('click', '.slider-level', function(){
-      var option = $(this).attr('data-radio')
-      switch (option){
-        case 'fa06':
-          load06();
-          break;
-        case 'fa07':
-          load07();
-          break;
-        case 'fa08':
-          load08();
-          break;
-        case 'fa09':
-          load09();
-          break;
-        case 'fa10':
-          load10();
-          break;
-        case 'fa11':
-          load11();
-          break;
-        case 'fa12':
-          load12();
-          break;
-        case 'fa13':
-          load13();
-          break;
-        case 'fa14':
-          load14();
-          break;
-      }
+  <div id="tooltip"></div><!-- div to hold tooltip. -->
+  <link rel="stylesheet" type="text/css" href="css/radios-to-slider.css">
+  <script src="js/uStates.js"></script> <!-- creates uStates. -->
+  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="js/jquery.radios-to-slider.js"></script>
+   
+  <script>
+    $(document).ready( function(){
+      $("#radios").radiosToSlider();
     });
-  });
-</script>
-<div id="radios">
-    <input id="fa06" name="options" type="radio" checked>
-    <label for="fa06">2006</label>
- 
-    <input id="fa07" name="options" type="radio">
-    <label for="fa07">2007</label>
- 
-    <input id="fa08" name="options" type="radio">
-    <label for="fa08">2008</label>
- 
-    <input id="fa09" name="options" type="radio">
-    <label for="fa09">2009</label>
- 
-    <input id="fa10" name="options" type="radio">
-    <label for="fa10">2010</label>
-
-    <input id="fa11" name="options" type="radio">
-    <label for="fa11">2011</label>
- 
-    <input id="fa12" name="options" type="radio">
-    <label for="fa12">2012</label>
- 
-    <input id="fa13" name="options" type="radio">
-    <label for="fa13">2013</label>
- 
-    <input id="fa14" name="options" type="radio">
-    <label for="fa14">2014</label>
-</div>
-<!-- <button id="fa13">Fall 2013</button> -->
-<svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
-<script>
-  $("svg").remove();
-    $("body").append('<svg width="960" height="600" id="statesvg"></svg>');
-    function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
-      return "<h4>"+n+"</h4><table>"+
-        "<tr><td>Students</td><td>"+(d.low)+"</td></tr>"+
-        "</table>";
-    }
-
-    var numbers = {
-                    "AL": 1,
-                    "AK": 0,
-                    "AZ": 8,
-                    "AR": 2,
-                    "CA": 40,
-                    "CO": 11,
-                    "CT": 3,
-                    "DE": 3,
-                    "FL": 6,
-                    "GA": 6,
-                    "HI": 1,
-                    "ID": 1,
-                    "IL": 6323,
-                    "IN": 17,
-                    "IA": 7,
-                    "KS": 9,
-                    "KY": 7,
-                    "LA": 2,
-                    "ME": 0,
-                    "MD": 17,
-                    "MA": 9,
-                    "MI": 17,
-                    "MN": 9,
-                    "MS": 0,
-                    "MO": 44,
-                    "MT": 0,
-                    "NE": 7,
-                    "NV": 3,
-                    "NH": 4,
-                    "NJ": 37,
-                    "NM": 1,
-                    "NY": 14,
-                    "NC": 5,
-                    "ND": 0,
-                    "OH": 37,
-                    "OK": 5,
-                    "OR": 3,
-                    "PA": 6,
-                    "RI": 0,
-                    "SC": 2,
-                    "SD": 0,
-                    "TN": 4,
-                    "TX": 21,
-                    "UT": 0,
-                    "VT": 1,
-                    "VA": 13,
-                    "WA": 11,
-                    "WV": 3,
-                    "WI": 13,
-                    "WY": 0,
-                    "TO": 6733,
-                }
-
-    var sampleData ={}; /* Sample random data. */ 
-    ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
-    "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
-    "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
-    "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
-    "WI", "MO", "AR", "OK", "KS", "VA", "LA"]
-      .forEach(function(d){
-          if (d === "IL"){
-            sampleData[d] = {low: numbers[d], color:"#006699"};
-          }
-          else{
-            sampleData[d] = {low: numbers[d], color:d3.interpolate("#ccffff", "#006699")(numbers[d]/300)};
-          }
+  </script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(document).on('click', '.slider-level', function(){
+        var option = $(this).attr('data-radio')
+        switch (option){
+          case 'fa06':
+            load06();
+            break;
+          case 'fa07':
+            load07();
+            break;
+          case 'fa08':
+            load08();
+            break;
+          case 'fa09':
+            load09();
+            break;
+          case 'fa10':
+            load10();
+            break;
+          case 'fa11':
+            load11();
+            break;
+          case 'fa12':
+            load12();
+            break;
+          case 'fa13':
+            load13();
+            break;
+          case 'fa14':
+            load14();
+            break;
+        }
       });
+    });
+  </script>
+  <p>
+    Welcome to <span class="blue">Student Map</span>! For this project, we analyze the data of the last 9 years of incoming freshman classes at U of I. We used a choropleth to visualize our data. Below is a visualization of the number of students in each class by their state of residence. One of the most interesting patterns we found was the steady growth of incoming freshmen from the state of <span class="blue">California</span>. A more obvious pattern is how the number of incoming students from <span class="blue">Illinois</span> has stayed significantly high over the years.
+  </p>
+  <div id="radios">
+      <input id="fa06" name="options" type="radio" checked>
+      <label for="fa06">2006</label>
+   
+      <input id="fa07" name="options" type="radio">
+      <label for="fa07">2007</label>
+   
+      <input id="fa08" name="options" type="radio">
+      <label for="fa08">2008</label>
+   
+      <input id="fa09" name="options" type="radio">
+      <label for="fa09">2009</label>
+   
+      <input id="fa10" name="options" type="radio">
+      <label for="fa10">2010</label>
 
-    /* draw states on id #statesvg */ 
-    uStates.draw("#statesvg", sampleData, tooltipHtml);
-</script>
-<script src="js/load06.js"></script>
-<script src="js/load07.js"></script>
-<script src="js/load08.js"></script>
-<script src="js/load09.js"></script>
-<script src="js/load10.js"></script>
-<script src="js/load11.js"></script>
-<script src="js/load12.js"></script>
-<script src="js/load13.js"></script>
-<script src="js/load14.js"></script>
+      <input id="fa11" name="options" type="radio">
+      <label for="fa11">2011</label>
+   
+      <input id="fa12" name="options" type="radio">
+      <label for="fa12">2012</label>
+   
+      <input id="fa13" name="options" type="radio">
+      <label for="fa13">2013</label>
+   
+      <input id="fa14" name="options" type="radio">
+      <label for="fa14">2014</label>
+  </div>
+  <!-- <button id="fa13">Fall 2013</button> -->
+  <svg width="960" height="600" id="statesvg"></svg> <!-- svg to hold the map. -->
+  <script>
+    $("svg").remove();
+      $("body").append('<svg width="960" height="600" id="statesvg"></svg>');
+      function tooltipHtml(n, d){ /* function to create html content string in tooltip div. */
+        return "<h4>"+n+"</h4><table>"+
+          "<tr><td>Students</td><td>"+(d.low)+"</td></tr>"+
+          "</table>";
+      }
 
+      var numbers = {
+                      "AL": 1,
+                      "AK": 0,
+                      "AZ": 8,
+                      "AR": 2,
+                      "CA": 40,
+                      "CO": 11,
+                      "CT": 3,
+                      "DE": 3,
+                      "FL": 6,
+                      "GA": 6,
+                      "HI": 1,
+                      "ID": 1,
+                      "IL": 6323,
+                      "IN": 17,
+                      "IA": 7,
+                      "KS": 9,
+                      "KY": 7,
+                      "LA": 2,
+                      "ME": 0,
+                      "MD": 17,
+                      "MA": 9,
+                      "MI": 17,
+                      "MN": 9,
+                      "MS": 0,
+                      "MO": 44,
+                      "MT": 0,
+                      "NE": 7,
+                      "NV": 3,
+                      "NH": 4,
+                      "NJ": 37,
+                      "NM": 1,
+                      "NY": 14,
+                      "NC": 5,
+                      "ND": 0,
+                      "OH": 37,
+                      "OK": 5,
+                      "OR": 3,
+                      "PA": 6,
+                      "RI": 0,
+                      "SC": 2,
+                      "SD": 0,
+                      "TN": 4,
+                      "TX": 21,
+                      "UT": 0,
+                      "VT": 1,
+                      "VA": 13,
+                      "WA": 11,
+                      "WV": 3,
+                      "WI": 13,
+                      "WY": 0,
+                      "TO": 6733,
+                  }
+
+      var sampleData ={}; /* Sample random data. */ 
+      ["HI", "AK", "FL", "SC", "GA", "AL", "NC", "TN", "RI", "CT", "MA",
+      "ME", "NH", "VT", "NY", "NJ", "PA", "DE", "MD", "WV", "KY", "OH", 
+      "MI", "WY", "MT", "ID", "WA", "DC", "TX", "CA", "AZ", "NV", "UT", 
+      "CO", "NM", "OR", "ND", "SD", "NE", "IA", "MS", "IN", "IL", "MN", 
+      "WI", "MO", "AR", "OK", "KS", "VA", "LA"]
+        .forEach(function(d){
+            if (d === "IL"){
+              sampleData[d] = {low: numbers[d], color:"#006699"};
+            }
+            else{
+              if (numbers[d] === 0){
+                sampleData[d] = {low: numbers[d], color:"#ffffff"};
+              }
+              else {
+                sampleData[d] = {low: numbers[d], color:d3.interpolate("#ccffff", "#006699")(numbers[d]/300)};
+              }
+            }
+        });
+
+      /* draw states on id #statesvg */ 
+      uStates.draw("#statesvg", sampleData, tooltipHtml);
+  </script>
+  <script src="js/load06.js"></script>
+  <script src="js/load07.js"></script>
+  <script src="js/load08.js"></script>
+  <script src="js/load09.js"></script>
+  <script src="js/load10.js"></script>
+  <script src="js/load11.js"></script>
+  <script src="js/load12.js"></script>
+  <script src="js/load13.js"></script>
+  <script src="js/load14.js"></script>
 </body>
